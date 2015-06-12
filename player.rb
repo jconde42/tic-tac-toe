@@ -1,19 +1,9 @@
 
 class Player
-  attr_accessor :score
   attr_reader :piece
 
   def initialize piece
     @piece = piece
-    @score = 0
-  end
-
-  def increase_score
-    @score += 1
-  end
-
-  def reset_score
-    @score = 0
   end
 
   def win? board

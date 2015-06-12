@@ -34,25 +34,31 @@ def change player, player1, player2
   end
 end
 
-puts "----------Tic-Tac-Toe------------"
-puts
+def play player1, player2, board
+  puts "----------Tic-Tac-Toe------------"
+  puts
 
-player_turn = player1
+  player_turn = player1
 
-while !player1.win?(board) and !player2.win?(board) and !board.full?
-  board.display
-  puts "\n#{player_turn == player1 ? "Player 1" : "Player 2"} (#{player_turn.piece})"
-  puts "Enter a position to play (x,y): "
-  cord = input(gets)
-  while !board.edit(cord[1],cord[0],player_turn)
-    puts "That space is taken, try again"
+  while !player1.win?(board) and !player2.win?(board) and !board.full?
+    board.display
+    puts "\n#{player_turn == player1 ? "Player 1" : "Player 2"} (#{player_turn.piece})"
+    puts "Enter a position to play (x,y): "
     cord = input(gets)
+    while !board.edit(cord[1],cord[0],player_turn)
+      puts "That space is taken, try again"
+      cord = input(gets)
+    end
+    player_turn = change player_turn, player1, player2
   end
-  player_turn = change player_turn, player1, player2
+
+  if board.full? and !player1.win?(board) and !player2.win?(board)
+    puts "\nIt's a tie"
+  else
+    puts "\nPlayer #{player1.win?(board) ? "Player 1" : "Player 2"} won!"
+  end
+
+  return nil
 end
 
-if board.full? and !player1.win?(board) and !player2.win?(board)
-  puts "\nIt's a tie"
-else
-  puts "\nPlayer #{player1.win?(board) ? "Player 1" : "Player 2"} won!"
-end
+play player1, player2, board
