@@ -1,0 +1,54 @@
+require_relative './control_helper'
+
+class Player
+  attr_accessor :score
+  attr_reader :piece
+
+  def initialize piece
+    @piece = piece
+    @score = 0
+  end
+
+  def increase_score
+    @score += 1
+  end
+
+  def reset_score
+    @score = 0
+  end
+
+  def win? board
+    grid = board.grid
+
+    tl = grid[0][0]
+    tc = grid[0][1]
+    tr = grid[0][2]
+    ml = grid[1][0]
+    mc = grid[1][1]
+    mr = grid[1][2]
+    bl = grid[2][0]
+    bc = grid[2][1]
+    br = grid[2][2]
+
+    if tr == mc == bl #pos slope
+      return true
+    elsif tl == mc == br #neg slope
+      return true
+    elsif tl == ml == bl #vert left
+      return true
+    elsif tc == mc == bc #vert cent
+      return true
+    elsif tr == br == br #vert right
+      return true
+    elsif tl == tc == tr #horz top
+      return true
+    elsif ml == mc == mr #horz cent
+      return true
+    elsif bl == bc == br #horz bottom
+      return true
+    else
+      return false
+    end
+
+  end
+end
