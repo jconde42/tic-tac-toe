@@ -34,21 +34,28 @@ def change player, player1, player2
   end
 end
 
-def play
-  puts "----------Tic-Tac-Toe------------"
-  puts
+def play player1, player2, board
 
   player_turn = player1
 
   while !player1.win?(board) and !player2.win?(board) and !board.full?
+    system('cls') or system('clear')
+
+    puts "----------Tic-Tac-Toe------------"
+    puts
+
     board.display
+
     puts "\n#{player_turn == player1 ? "Player 1" : "Player 2"} (#{player_turn.piece})"
     puts "Enter a position to play (x,y): "
+
     cord = input(gets)
+
     while !board.edit(cord[1],cord[0],player_turn)
       puts "That space is taken, try again"
       cord = input(gets)
     end
+
     player_turn = change player_turn, player1, player2
   end
 
@@ -61,4 +68,4 @@ def play
   return nil
 end
 
-play
+play player1, player2, board
